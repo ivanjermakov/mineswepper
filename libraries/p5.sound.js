@@ -8581,7 +8581,7 @@
          *  @example
          *  <div><code>
          *  var mic, recorder, soundFile;
-         *  var state = 0;
+         *  var value = 0;
          *
          *  function setup() {
    *    background(200);
@@ -8606,16 +8606,16 @@
          *
          *  function keyPressed() {
    *    // make sure user enabled the mic
-   *    if (state === 0 && mic.enabled) {
+   *    if (value === 0 && mic.enabled) {
    *
    *      // record to our p5.SoundFile
    *      recorder.record(soundFile);
    *
    *      background(255,0,0);
    *      text('Recording!', 20, 20);
-   *      state++;
+   *      value++;
    *    }
-   *    else if (state === 1) {
+   *    else if (value === 1) {
    *      background(0,255,0);
    *
    *      // stop recorder and
@@ -8623,13 +8623,13 @@
    *      recorder.stop();
    *
    *      text('Stopped', 20, 20);
-   *      state++;
+   *      value++;
    *    }
    *
-   *    else if (state === 2) {
+   *    else if (value === 2) {
    *      soundFile.play(); // play the result!
    *      save(soundFile, 'mySound.wav');
-   *      state++;
+   *      value++;
    *    }
    *  }
          *  </div></code>

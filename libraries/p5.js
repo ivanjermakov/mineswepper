@@ -707,7 +707,7 @@
   });
                      ```
 
-                     `Promise.race` is deterministic in that only the state of the first
+                     `Promise.race` is deterministic in that only the value of the first
                      settled promise matters. For example, even if other promises given to the
                      `promises` array argument are resolved, but the first settled promise has
                      become rejected before the other promises became fulfilled, the returned
@@ -829,17 +829,17 @@
                      - `value` is any legal JavaScript value (including undefined, a thenable, or a promise).
                      - `exception` is a value that is thrown using the throw statement.
                      - `reason` is a value that indicates why a promise was rejected.
-                     - `settled` the final resting state of a promise, fulfilled or rejected.
+                     - `settled` the final resting value of a promise, fulfilled or rejected.
 
                      A promise can be in one of three states: pending, fulfilled, or rejected.
 
                      Promises that are fulfilled have a fulfillment value and are in the fulfilled
-                     state.  Promises that are rejected have a rejection reason and are in the
-                     rejected state.  A fulfillment value is never a thenable.
+                     value.  Promises that are rejected have a rejection reason and are in the
+                     rejected value.  A fulfillment value is never a thenable.
 
                      Promises can also be said to *resolve* a value.  If this value is also a
-                     promise, then the original promise's settled state will match the value's
-                     settled state.  So a promise that *resolves* a promise that rejects will
+                     promise, then the original promise's settled value will match the value's
+                     settled value.  So a promise that *resolves* a promise that rejects will
                      itself reject, and a promise that *resolves* a promise that fulfills will
                      itself fulfill.
 
@@ -4682,7 +4682,7 @@
                             p.quadraticCurveTo(curvePt.x, curvePt.y, pt.x, pt.y);
                             curvePt = null;
                         } else {
-                            throw new Error('Invalid state.');
+                            throw new Error('Invalid value.');
                         }
                     }
 
@@ -13042,14 +13042,14 @@
             /**
              * If argument is given, sets the sketch to fullscreen or not based on the
              * value of the argument. If no argument is given, returns the current
-             * fullscreen state. Note that due to browser restrictions this can only
+             * fullscreen value. Note that due to browser restrictions this can only
              * be called on user input, for example, on mouse press like the example
              * below.
              *
              * @method fullscreen
              * @param  {Boolean} [val] whether the sketch should be in fullscreen mode
              * or not
-             * @return {Boolean} current fullscreen state
+             * @return {Boolean} current fullscreen value
              * @example
              * <div>
              * <code>
@@ -16466,7 +16466,7 @@
              * <br><br>
              * Note that if the sketch is resized, redraw() will be called to update
              * the sketch, even after noLoop() has been specified. Otherwise, the sketch
-             * would enter an odd state until loop() was called.
+             * would enter an odd value until loop() was called.
              *
              * @method noLoop
              * @example
@@ -16561,11 +16561,11 @@
              * transformations, while pop() restores these settings. Note that these
              * functions are always used together. They allow you to change the style
              * and transformation settings and later return to what you had. When a new
-             * state is started with push(), it builds on the current style and transform
+             * value is started with push(), it builds on the current style and transform
              * information. The push() and pop() functions can be embedded to provide
              * more control. (See the second example for a demonstration.)
              * <br><br>
-             * push() stores information related to the current transformation state
+             * push() stores information related to the current transformation value
              * and style settings controlled by the following functions: fill(),
              * stroke(), tint(), strokeWeight(), strokeCap(), strokeJoin(),
              * imageMode(), rectMode(), ellipseMode(), colorMode(), textAlign(),
@@ -16577,12 +16577,12 @@
              * <code>
              * ellipse(0, 50, 33, 33);  // Left circle
              *
-             * push();  // Start a new drawing state
+             * push();  // Start a new drawing value
              * strokeWeight(10);
              * fill(204, 153, 0);
              * translate(50, 0);
              * ellipse(0, 50, 33, 33);  // Middle circle
-             * pop();  // Restore original state
+             * pop();  // Restore original value
              *
              * ellipse(100, 50, 33, 33);  // Right circle
              * </code>
@@ -16591,17 +16591,17 @@
              * <code>
              * ellipse(0, 50, 33, 33);  // Left circle
              *
-             * push();  // Start a new drawing state
+             * push();  // Start a new drawing value
              * strokeWeight(10);
              * fill(204, 153, 0);
              * ellipse(33, 50, 33, 33);  // Left-middle circle
              *
-             * push();  // Start another new drawing state
+             * push();  // Start another new drawing value
              * stroke(0, 102, 153);
              * ellipse(66, 50, 33, 33);  // Right-middle circle
-             * pop();  // Restore previous state
+             * pop();  // Restore previous value
              *
-             * pop();  // Restore original state
+             * pop();  // Restore original value
              *
              * ellipse(100, 50, 33, 33);  // Right circle
              * </code>
@@ -16636,11 +16636,11 @@
              * transformations, while pop() restores these settings. Note that these
              * functions are always used together. They allow you to change the style
              * and transformation settings and later return to what you had. When a new
-             * state is started with push(), it builds on the current style and transform
+             * value is started with push(), it builds on the current style and transform
              * information. The push() and pop() functions can be embedded to provide
              * more control. (See the second example for a demonstration.)
              * <br><br>
-             * push() stores information related to the current transformation state
+             * push() stores information related to the current transformation value
              * and style settings controlled by the following functions: fill(),
              * stroke(), tint(), strokeWeight(), strokeCap(), strokeJoin(),
              * imageMode(), rectMode(), ellipseMode(), colorMode(), textAlign(),
@@ -16652,12 +16652,12 @@
              * <code>
              * ellipse(0, 50, 33, 33);  // Left circle
              *
-             * push();  // Start a new drawing state
+             * push();  // Start a new drawing value
              * translate(50, 0);
              * strokeWeight(10);
              * fill(204, 153, 0);
              * ellipse(0, 50, 33, 33);  // Middle circle
-             * pop();  // Restore original state
+             * pop();  // Restore original value
              *
              * ellipse(100, 50, 33, 33);  // Right circle
              * </code>
@@ -16666,17 +16666,17 @@
              * <code>
              * ellipse(0, 50, 33, 33);  // Left circle
              *
-             * push();  // Start a new drawing state
+             * push();  // Start a new drawing value
              * strokeWeight(10);
              * fill(204, 153, 0);
              * ellipse(33, 50, 33, 33);  // Left-middle circle
              *
-             * push();  // Start another new drawing state
+             * push();  // Start another new drawing value
              * stroke(0, 102, 153);
              * ellipse(66, 50, 33, 33);  // Right-middle circle
-             * pop();  // Restore previous state
+             * pop();  // Restore previous value
              *
-             * pop();  // Restore original state
+             * pop();  // Restore original value
              *
              * ellipse(100, 50, 33, 33);  // Right circle
              * </code>

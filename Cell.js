@@ -69,6 +69,11 @@ class Cell {
                     fill(80, 255, 100);
                     ellipse(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize / 2, cellSize / 2);
                 } else {
+                    if (gameOver && this.checked) {
+                        fill(80, 255, 0);
+                        ellipse(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize / 2, cellSize / 2);
+                        return;
+                    }
                     fill(255, 80, 100);
                     ellipse(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize / 2, cellSize / 2);
                 }

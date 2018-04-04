@@ -7,13 +7,13 @@ let rows = h / cellSize;
 
 let field;
 
-let hardness = 20; //percentage of bombs
+let hardness = 10; //percentage of bombs
 
 let win = false;
 
 let gameOver = false;
 
-let minesCount = 15;
+let minesCount = 0;
 
 let minesLeftP = document.getElementById("minesLeft");
 

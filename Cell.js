@@ -120,6 +120,11 @@ class Cell {
 
     rightClick() {
         if (this.isHidden) {
+            if (!this.checked) {
+                minesCount--;
+            } else {
+                minesCount++;
+            }
             this.checked = !this.checked;
         }
     }

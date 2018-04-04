@@ -69,7 +69,7 @@ class Cell {
                     fill(80, 255, 100);
                     ellipse(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize / 2, cellSize / 2);
                 } else {
-                    if (gameOver && this.checked) {
+                    if (isGameOver && this.checked) {
                         fill(80, 255, 0);
                         ellipse(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize / 2, cellSize / 2);
                         return;
@@ -83,6 +83,7 @@ class Cell {
                 textAlign(CENTER);
                 textSize(30);
                 textFont('Calibri');
+              fill(255);
                 text(this.value, this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2);
                 pop();
             }
@@ -119,6 +120,11 @@ class Cell {
 
     rightClick() {
         if (this.isHidden) {
+            if (!this.checked) {
+                minesCount--;
+            } else {
+                minesCount++;
+            }
             this.checked = !this.checked;
         }
     }

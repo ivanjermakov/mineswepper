@@ -51,7 +51,8 @@ drawField = () => {
 };
 
 setup = () => {
-    createCanvas(w, h);
+    let cnv = createCanvas(w, h);
+    cnv.parent("canvas");
 
     minesCount = 10;
 
@@ -62,6 +63,8 @@ setup = () => {
     field = [];
     createField();
 
+    background(150);
+
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
             field[i][j].setNeighbours();
@@ -71,8 +74,6 @@ setup = () => {
 };
 
 draw = () => {
-    background(150);
-
     drawField();
     checkForWin();
 

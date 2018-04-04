@@ -5,13 +5,8 @@ body {
     align-items: center;
 }
 
-#defaultCanvas0 {
+#canvas {
     position: absolute;
-}
-
-#score, #hScore {
-    /*font-size: 150%;*/
-    text-align: center;
 }
 
 #footer {
@@ -22,17 +17,35 @@ body {
     padding-bottom: 10px;
 }
 
+#info {
+    position: relative;
+    width: 600px;
+    height: 32px;
+}
+
 p {
+    position: relative;
+    display: inline;
+    font-size: 150%;
     font-family: Calibri, serif;
     margin: 0;
     padding: 0;
     color: #292929;
 }
 
-.scores {
+#difficulty {
     position: absolute;
-    padding-top: 90px;
+    display: inline;
+    right: 0;
+    margin: 0;
+}
+
+select {
+    position: relative;
     top: 0;
+    height: 25px;
+    width: 200px;
+    font-size: 110%;
 }
 
 #controls {

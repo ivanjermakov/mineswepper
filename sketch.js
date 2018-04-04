@@ -1,20 +1,17 @@
 let w = 600;
 let h = 600;
 
-let cellSize = 60;
+let field;
+
+let cellSize = 50;
 let cols = w / cellSize;
 let rows = h / cellSize;
 
-let field;
+let win;
+let isGameOver;
+let gameStarted;
 
-let hardness = 10; //percentage of bombs
-
-let win = false;
-
-let isGameOver = false;
-
-let minesCount = 0;
-
+let minesCount = 40;
 let minesLeftP = document.getElementById("minesLeft");
 
 createMatrix = (cols, rows) => {
@@ -31,10 +28,16 @@ createField = () => {
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
             field[i][j] = new Cell(i, j);
-            if (hardness > floor(random() * 100)) {
-                minesCount++;
-                field[i][j].value = -1;
-            }
+        }
+    }
+
+    let mines = 0;
+    while(mines !== minesCount) {
+        let i = floor(random(cols));
+        let j = floor(random(rows));
+        if (field[i][j].value !== -1) {
+            field[i][j].value = -1;
+            mines++;
         }
     }
 };
@@ -50,6 +53,11 @@ drawField = () => {
 setup = () => {
     createCanvas(w, h);
 
+    win = false;
+    isGameOver = false;
+    gameStarted = false;
+
+    field = [];
     createField();
 
     for (let i = 0; i < cols; i++) {
@@ -66,9 +74,7 @@ draw = () => {
     drawField();
     checkForWin();
 
-    minesLeftP.innerText = "" + minesCount;
-
-    console.log(isGameOver);
+    minesLeftP.innerText = minesCount;
 };
 
 mouseClicked = () => {
@@ -77,6 +83,14 @@ mouseClicked = () => {
             for (let j = 0; j < rows; j++) {
                 if (mouseX > i * cellSize && mouseX < i * cellSize + cellSize &&
                     mouseY > j * cellSize && mouseY < j * cellSize + cellSize) {
+                    //first click is always lose-free
+                    if (!gameStarted) {
+                        while (field[i][j].value === -1) {
+                            setup();
+                        }
+
+                        gameStarted = true;
+                    }
                     field[i][j].leftClick();
                     return;
                 }
@@ -98,6 +112,13 @@ mousePressed = () => {
     }
 };
 
+keyPressed = () => {
+    if (keyCode === 82) {
+        setup();
+        loop();
+    }
+};
+
 gameOver = () => {
     isGameOver = true;
     for (let col of field) {
@@ -105,6 +126,8 @@ gameOver = () => {
             cell.isHidden = false;
         }
     }
+
+    noLoop();
 };
 
 checkForWin = () => {
@@ -123,4 +146,6 @@ checkForWin = () => {
             cell.isHidden = false;
         }
     }
+
+    noLoop();
 };

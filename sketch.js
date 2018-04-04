@@ -11,7 +11,7 @@ let hardness = 10; //percentage of bombs
 
 let win = false;
 
-let gameOver = false;
+let isGameOver = false;
 
 let minesCount = 0;
 
@@ -66,7 +66,9 @@ draw = () => {
     drawField();
     checkForWin();
 
-    minesLeftP.innerText = minesCount;
+    minesLeftP.innerText = "" + minesCount;
+
+    console.log(isGameOver);
 };
 
 mouseClicked = () => {
@@ -97,7 +99,7 @@ mousePressed = () => {
 };
 
 gameOver = () => {
-    gameOver = true;
+    isGameOver = true;
     for (let col of field) {
         for (let cell of col) {
             cell.isHidden = false;

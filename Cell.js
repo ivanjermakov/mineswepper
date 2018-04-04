@@ -78,16 +78,12 @@ class Cell {
                     ellipse(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize / 2, cellSize / 2);
                 }
             } else {
-                if (isGameOver && this.value !== -1 && this.checked) {
-                    fill(255, 80, 100);
-                } else {
-                    fill(255);
-                }
                 push();
                 translate(0, 10);
                 textAlign(CENTER);
                 textSize(30);
                 textFont('Calibri');
+              fill(255);
                 text(this.value, this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2);
                 pop();
             }

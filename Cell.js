@@ -61,15 +61,18 @@ class Cell {
         noStroke();
 
         if (!this.isHidden) {
+            //showed cells background
             fill(70);
             rect(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize - 1, cellSize - 1, 1);
-
+            //empty cell
             if (this.value === 0) return;
+            //mines on win and lose
             if (this.value === -1) {
                 if (win) {
                     fill(80, 255, 100);
                     ellipse(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize / 2, cellSize / 2);
                 } else {
+                    //correct checked mines
                     if (isGameOver && this.checked) {
                         fill(80, 255, 0);
                         ellipse(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize / 2, cellSize / 2);
@@ -79,6 +82,7 @@ class Cell {
                     ellipse(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize / 2, cellSize / 2);
                 }
             } else {
+                //cells with digits
                 push();
                 translate(0, 10);
                 textAlign(CENTER);
@@ -89,8 +93,9 @@ class Cell {
                 pop();
             }
         } else {
+            //highlighted cells
             if (this.highlighted) {
-                fill(230);
+                fill(200);
             } else {
                 fill(255);
             }
@@ -107,10 +112,6 @@ class Cell {
         if (this.value === 0 && this.isHidden) {
             this.showEmptyNeighbours();
         }
-        //TODO: think about it
-        // if (this.value !== -1 && !this.isHidden) {
-        //     this.showAdditionalValues();
-        // }
         if (this.value === -1) {
             gameOver();
         }

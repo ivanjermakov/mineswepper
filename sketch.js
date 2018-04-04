@@ -11,7 +11,7 @@ let win;
 let isGameOver;
 let gameStarted;
 
-let minesCount = 40;
+let minesCount;
 let minesLeftP = document.getElementById("minesLeft");
 
 createMatrix = (cols, rows) => {
@@ -32,7 +32,7 @@ createField = () => {
     }
 
     let mines = 0;
-    while(mines !== minesCount) {
+    while (mines !== minesCount) {
         let i = floor(random(cols));
         let j = floor(random(rows));
         if (field[i][j].value !== -1) {
@@ -52,6 +52,8 @@ drawField = () => {
 
 setup = () => {
     createCanvas(w, h);
+
+    minesCount = 10;
 
     win = false;
     isGameOver = false;
@@ -73,6 +75,21 @@ draw = () => {
 
     drawField();
     checkForWin();
+
+    if (mouseIsPressed) {
+        for (let i = 0; i < cols; i++) {
+            for (let j = 0; j < rows; j++) {
+                if (mouseX > i * cellSize && mouseX < i * cellSize + cellSize &&
+                    mouseY > j * cellSize && mouseY < j * cellSize + cellSize) {
+                    if (mouseButton === LEFT && !field[i][j].isHidden) {
+                        for (let neighbour of field[i][j].neighbours) {
+                            neighbour.highlighted = true;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     minesLeftP.innerText = minesCount;
 };
@@ -100,14 +117,23 @@ mouseClicked = () => {
 };
 
 mousePressed = () => {
-    if (mouseButton === RIGHT) {
-        for (let i = 0; i < cols; i++) {
-            for (let j = 0; j < rows; j++) {
-                if (mouseX > i * cellSize && mouseX < i * cellSize + cellSize &&
-                    mouseY > j * cellSize && mouseY < j * cellSize + cellSize) {
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            if (mouseX > i * cellSize && mouseX < i * cellSize + cellSize &&
+                mouseY > j * cellSize && mouseY < j * cellSize + cellSize) {
+                if (mouseButton === RIGHT) {
                     field[i][j].rightClick();
                 }
             }
+        }
+    }
+
+};
+
+mouseReleased = () => {
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            field[i][j].highlighted = false;
         }
     }
 };
@@ -115,7 +141,6 @@ mousePressed = () => {
 keyPressed = () => {
     if (keyCode === 82) {
         setup();
-        loop();
     }
 };
 
@@ -127,7 +152,6 @@ gameOver = () => {
         }
     }
 
-    noLoop();
 };
 
 checkForWin = () => {
@@ -146,6 +170,4 @@ checkForWin = () => {
             cell.isHidden = false;
         }
     }
-
-    noLoop();
 };

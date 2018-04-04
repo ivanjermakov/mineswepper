@@ -8,6 +8,7 @@ class Cell {
         this.value = 0;
         this.isHidden = true;
         this.checked = false;
+        this.highlighted = false;
         this.neighbours = [];
     }
 
@@ -83,12 +84,16 @@ class Cell {
                 textAlign(CENTER);
                 textSize(30);
                 textFont('Calibri');
-              fill(255);
+                fill(255);
                 text(this.value, this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2);
                 pop();
             }
         } else {
-            fill(255);
+            if (this.highlighted) {
+                fill(230);
+            } else {
+                fill(255);
+            }
             rect(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize - 1, cellSize - 1, 1);
             if (this.checked) {
                 fill(255, 80, 100);

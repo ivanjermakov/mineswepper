@@ -19,12 +19,12 @@
 <div id="canvas">
     <div id="info">
         <p>Mines left: <span id="minesLeft">0</span></p>
-        <form id="difficulty" action="">
+        <form id="difficulty" onchange="setup()">
             <p>Difficulty: </p>
-            <select name="cars">
-                <option value="saab">Beginner</option>
-                <option value="mercedes">Intermediate</option>
-                <option value="audi">Expert</option>
+            <select id="levels" name="levels">
+                <option value="0">Beginner</option>
+                <option value="1">Intermediate</option>
+                <option value="2">Expert</option>
             </select>
         </form>
     </div>

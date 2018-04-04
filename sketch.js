@@ -1,11 +1,11 @@
-let w = 600;
-let h = 600;
-
 let field;
 
-let cellSize = 50;
-let cols = w / cellSize;
-let rows = h / cellSize;
+let cellSize;
+let cols;
+let rows;
+
+let w;
+let h;
 
 let win;
 let isGameOver;
@@ -13,6 +13,30 @@ let gameStarted;
 
 let minesCount;
 let minesLeftP = document.getElementById("minesLeft");
+
+load = () => {
+    cols = 20;
+    rows = 10;
+    minesCount = 16;
+
+    let difficulty = document.getElementById("levels").value;
+    switch (difficulty) {
+        case '1':
+            cols = 30;
+            rows = 15;
+            minesCount = 50;
+            break;
+        case '2':
+            cols = 40;
+            rows = 20;
+            minesCount = 100;
+            break;
+    }
+
+    cellSize = 600 / rows;
+    w = cols * cellSize;
+    h = rows * cellSize;
+};
 
 createMatrix = (cols, rows) => {
     let matrix = [];
@@ -51,10 +75,10 @@ drawField = () => {
 };
 
 setup = () => {
+    load();
+
     let cnv = createCanvas(w, h);
     cnv.parent("canvas");
-
-    minesCount = 10;
 
     win = false;
     isGameOver = false;

@@ -90,9 +90,10 @@ class Cell {
         if (this.value === 0 && this.isHidden) {
             this.showEmptyNeighbours();
         }
-        if (this.value === 1 && !this.isHidden) {
-            this.showAdditionalValues();
-        }
+        //TODO: thik about it
+        // if (this.value !== -1 && !this.isHidden) {
+        //     this.showAdditionalValues();
+        // }
         if (this.value === -1 && !this.checked) {
             gameOver();
         }

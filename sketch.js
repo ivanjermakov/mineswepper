@@ -7,7 +7,13 @@ let rows = h / cellSize;
 
 let field;
 
-let hardness = 10; //percentage of bombs
+let hardness = 20; //percentage of bombs
+
+let win = false;
+
+let minesCount = 0;
+
+let minesLeftP = document.getElementById("minesLeft");
 
 createMatrix = (cols, rows) => {
     let matrix = [];
@@ -22,8 +28,9 @@ createField = () => {
 
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
-            field[i][j] = new Cell(i, j, cellSize, cols, rows);
+            field[i][j] = new Cell(i, j);
             if (hardness > floor(random() * 100)) {
+                minesCount++;
                 field[i][j].value = -1;
             }
         }
@@ -45,12 +52,6 @@ setup = () => {
 
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
-            field[i][j].calculateValues();
-        }
-    }
-
-    for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
             field[i][j].setNeighbours();
             field[i][j].calculateValues();
         }
@@ -61,14 +62,20 @@ draw = () => {
     background(150);
 
     drawField();
+    checkForWin();
+
+    minesLeftP.innerText = minesCount;
 };
 
 mouseClicked = () => {
-    for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-            if (mouseX > i * cellSize && mouseX < i * cellSize + cellSize &&
-                mouseY > j * cellSize && mouseY < j * cellSize + cellSize) {
-                field[i][j].leftClick();
+    if (mouseButton === RIGHT) {
+        for (let i = 0; i < cols; i++) {
+            for (let j = 0; j < rows; j++) {
+                if (mouseX > i * cellSize && mouseX < i * cellSize + cellSize &&
+                    mouseY > j * cellSize && mouseY < j * cellSize + cellSize) {
+                    field[i][j].leftClick();
+                    return;
+                }
             }
         }
     }
@@ -88,6 +95,24 @@ mousePressed = () => {
 };
 
 gameOver = () => {
+    for (let col of field) {
+        for (let cell of col) {
+            cell.isHidden = false;
+        }
+    }
+};
+
+checkForWin = () => {
+    for (let col of field) {
+        for (let cell of col) {
+            if ((cell.value === -1 && !cell.checked) || (cell.value !== -1 && cell.isHidden)) {
+                return;
+            }
+        }
+    }
+
+    win = true;
+
     for (let col of field) {
         for (let cell of col) {
             cell.isHidden = false;

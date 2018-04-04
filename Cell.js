@@ -58,14 +58,20 @@ class Cell {
     draw() {
         rectMode(CENTER);
         noStroke();
+
         if (!this.isHidden) {
             fill(70);
             rect(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize - 1, cellSize - 1, 1);
 
             if (this.value === 0) return;
             if (this.value === -1) {
-                fill(255, 80, 100);
-                ellipse(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize / 2, cellSize / 2);
+                if (win) {
+                    fill(80, 255, 100);
+                    ellipse(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize / 2, cellSize / 2);
+                } else {
+                    fill(255, 80, 100);
+                    ellipse(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize / 2, cellSize / 2);
+                }
             } else {
                 push();
                 translate(0, 10);
@@ -87,17 +93,18 @@ class Cell {
     }
 
     leftClick() {
+        if (this.checked) return;
         if (this.value === 0 && this.isHidden) {
             this.showEmptyNeighbours();
         }
-        //TODO: thik about it
+        //TODO: think about it
         // if (this.value !== -1 && !this.isHidden) {
         //     this.showAdditionalValues();
         // }
-        if (this.value === -1 && !this.checked) {
+        if (this.value === -1) {
             gameOver();
         }
-        if (this.value !== -1 && !this.checked) {
+        if (this.value !== -1) {
             if (this.value === 0) {
                 this.showEmptyNeighbours();
             } else {

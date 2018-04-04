@@ -11,6 +11,8 @@ let hardness = 20; //percentage of bombs
 
 let win = false;
 
+let gameOver = false;
+
 let minesCount = 15;
 
 let minesLeftP = document.getElementById("minesLeft");
@@ -95,6 +97,7 @@ mousePressed = () => {
 };
 
 gameOver = () => {
+    gameOver = true;
     for (let col of field) {
         for (let cell of col) {
             cell.isHidden = false;

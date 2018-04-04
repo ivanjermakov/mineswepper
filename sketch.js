@@ -11,7 +11,7 @@ let hardness = 20; //percentage of bombs
 
 let win = false;
 
-let minesCount = 0;
+let minesCount = 15;
 
 let minesLeftP = document.getElementById("minesLeft");
 
@@ -68,7 +68,7 @@ draw = () => {
 };
 
 mouseClicked = () => {
-    if (mouseButton === RIGHT) {
+    if (mouseButton === LEFT) {
         for (let i = 0; i < cols; i++) {
             for (let j = 0; j < rows; j++) {
                 if (mouseX > i * cellSize && mouseX < i * cellSize + cellSize &&

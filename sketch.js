@@ -1,7 +1,7 @@
 let w = 600;
 let h = 600;
 
-let cellSize = 50;
+let cellSize = 60;
 let cols = w / cellSize;
 let rows = h / cellSize;
 
@@ -9,15 +9,15 @@ let field;
 
 let hardness = 10; //percentage of bombs
 
-function createMatrix(cols, rows) {
+createMatrix = (cols, rows) => {
     let matrix = [];
     for (let i = 0; i < cols; i++) {
         matrix[i] = [rows];
     }
     return matrix;
-}
+};
 
-function createField() {
+createField = () => {
     field = createMatrix(cols, rows);
 
     for (let i = 0; i < cols; i++) {
@@ -28,25 +28,69 @@ function createField() {
             }
         }
     }
-}
+};
 
-function drawField() {
+drawField = () => {
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
             field[i][j].draw();
         }
     }
-}
+};
 
-function setup() {
+setup = () => {
     createCanvas(w, h);
 
-    createField(w / cellSize, h / cellSize);
+    createField();
 
-}
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            field[i][j].calculateValues();
+        }
+    }
 
-function draw() {
-    background(41);
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            field[i][j].setNeighbours();
+            field[i][j].calculateValues();
+        }
+    }
+};
+
+draw = () => {
+    background(150);
 
     drawField();
-}
+};
+
+mouseClicked = () => {
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            if (mouseX > i * cellSize && mouseX < i * cellSize + cellSize &&
+                mouseY > j * cellSize && mouseY < j * cellSize + cellSize) {
+                field[i][j].leftClick();
+            }
+        }
+    }
+};
+
+mousePressed = () => {
+    if (mouseButton === RIGHT) {
+        for (let i = 0; i < cols; i++) {
+            for (let j = 0; j < rows; j++) {
+                if (mouseX > i * cellSize && mouseX < i * cellSize + cellSize &&
+                    mouseY > j * cellSize && mouseY < j * cellSize + cellSize) {
+                    field[i][j].rightClick();
+                }
+            }
+        }
+    }
+};
+
+gameOver = () => {
+    for (let col of field) {
+        for (let cell of col) {
+            cell.isHidden = false;
+        }
+    }
+};

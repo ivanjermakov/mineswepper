@@ -17,8 +17,8 @@ let minesLeftP = document.getElementById("minesLeft");
 let minesChecked = 0;
 
 load = () => {
-    cols = 20;
-    rows = 10;
+    cols = 5;
+    rows = 5;
     minesCount = 16;
 
     let difficulty = document.getElementById("levels").value;
@@ -182,15 +182,19 @@ gameOver = () => {
 };
 
 checkForWin = () => {
-    for (let col of field) {
-        for (let cell of col) {
-            if ((cell.value === -1 && !cell.checked) || (cell.value !== -1 && cell.isHidden)) {
-                return;
+    if (!win) {
+        for (let col of field) {
+            for (let cell of col) {
+                if ((cell.value === -1 && !cell.checked) || (cell.value !== -1 && cell.isHidden)) {
+                    return;
+                }
             }
         }
-    }
 
-    win = true;
+        win = true;
+    } else {
+        minesChecked = minesCount;
+    }
 
     showAllCells();
 };
@@ -224,7 +228,8 @@ countChecked = () => {
     //easter egg
     if (count === cols * rows) {
         window.open("https://www.urbandictionary.com/define.php?term=lol");
-        noDraw();
+        win = true;
+        noLoop();
     }
 
     minesChecked = count;

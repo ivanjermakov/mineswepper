@@ -1,3 +1,8 @@
+//disable double click selection
+document.addEventListener('mousedown', function (e) {
+    e.preventDefault();
+}, false);
+
 let field;
 
 let cellSize;
@@ -75,6 +80,7 @@ drawField = () => {
 };
 
 setup = () => {
+    //load user mode from html form
     load();
 
     let cnv = createCanvas(w, h);
@@ -87,8 +93,8 @@ setup = () => {
     field = [];
     createField();
 
-    background(150);
-    frameRate(20);
+    //limit frame rate to increase performance
+    frameRate(30);
 
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
@@ -99,6 +105,8 @@ setup = () => {
 };
 
 draw = () => {
+    background(150);
+
     drawField();
     checkForWin();
 
@@ -121,22 +129,20 @@ draw = () => {
 };
 
 mouseClicked = () => {
-    if (mouseButton === LEFT) {
-        for (let i = 0; i < cols; i++) {
-            for (let j = 0; j < rows; j++) {
-                if (mouseX > i * cellSize && mouseX < i * cellSize + cellSize &&
-                    mouseY > j * cellSize && mouseY < j * cellSize + cellSize) {
-                    //first click is always lose-free
-                    if (!gameStarted) {
-                        while (field[i][j].value === -1) {
-                            setup();
-                        }
-
-                        gameStarted = true;
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            if (mouseX > i * cellSize && mouseX < i * cellSize + cellSize &&
+                mouseY > j * cellSize && mouseY < j * cellSize + cellSize) {
+                //first click is always lose-free
+                if (!gameStarted) {
+                    while (field[i][j].value === -1) {
+                        setup();
                     }
-                    field[i][j].leftClick();
-                    return;
+
+                    gameStarted = true;
                 }
+                field[i][j].leftClick();
+                return false;
             }
         }
     }
@@ -153,7 +159,7 @@ mousePressed = () => {
             }
         }
     }
-
+    return false;
 };
 
 mouseReleased = () => {
@@ -162,12 +168,16 @@ mouseReleased = () => {
             field[i][j].highlighted = false;
         }
     }
+
+    return false;
 };
 
 keyPressed = () => {
     if (keyCode === 82) {
         setup();
     }
+
+    return false;
 };
 
 gameOver = () => {
@@ -177,7 +187,6 @@ gameOver = () => {
             cell.isHidden = false;
         }
     }
-
 };
 
 checkForWin = () => {

@@ -1,8 +1,3 @@
-//disable double click selection
-document.addEventListener('mousedown', function (e) {
-    e.preventDefault();
-}, false);
-
 let field;
 
 let cellSize;
@@ -159,7 +154,6 @@ mousePressed = () => {
             }
         }
     }
-    return false;
 };
 
 mouseReleased = () => {
@@ -168,16 +162,12 @@ mouseReleased = () => {
             field[i][j].highlighted = false;
         }
     }
-
-    return false;
 };
 
 keyPressed = () => {
     if (keyCode === 82) {
         setup();
     }
-
-    return false;
 };
 
 gameOver = () => {

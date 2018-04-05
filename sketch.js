@@ -33,6 +33,10 @@ load = () => {
             rows = 20;
             minesCount = 100;
             break;
+        case '3':
+            cols = 40;
+            rows = 20;
+            minesCount = 150;
     }
 
     cellSize = 600 / rows;

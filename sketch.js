@@ -17,8 +17,8 @@ let minesLeftP = document.getElementById("minesLeft");
 let minesChecked = 0;
 
 load = () => {
-    cols = 20;
-    rows = 10;
+    cols = 5;
+    rows = 5;
     minesCount = 16;
 
     let difficulty = document.getElementById("levels").value;
@@ -92,6 +92,8 @@ setup = () => {
 
     //limit frame rate to increase performance
     frameRate(30);
+
+    loop();
 
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
@@ -215,6 +217,14 @@ countChecked = () => {
                 count++;
             }
         }
+    }
+
+    console.log(count + " " + minesCount + " " + cols + " " + rows);
+
+    //easter egg
+    if (count === cols * rows) {
+        window.open("https://www.urbandictionary.com/define.php?term=lol");
+        noDraw();
     }
 
     minesChecked = count;

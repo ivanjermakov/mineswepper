@@ -118,6 +118,7 @@ draw = () => {
                 }
             }
         }
+
     }
 
     minesLeftP.innerText = minesCount;

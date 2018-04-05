@@ -126,7 +126,7 @@ draw = () => {
 
     }
 
-    minesLeftP.innerText = minesCount - minesChecked;
+    minesLeftP.innerText = "" + (minesCount - minesChecked);
 };
 
 mouseClicked = () => {
@@ -182,7 +182,7 @@ gameOver = () => {
 };
 
 checkForWin = () => {
-    if (!win) {
+    if (!win && !isGameOver) {
         for (let col of field) {
             for (let cell of col) {
                 if ((cell.value === -1 && !cell.checked) || (cell.value !== -1 && cell.isHidden)) {

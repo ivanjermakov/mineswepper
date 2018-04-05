@@ -102,12 +102,12 @@ class Cell {
             rect(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize - 1, cellSize - 1, 1);
             if (this.checked) {
                 //TODO: fix cross representation
-                strokeWeight(5);
+                strokeWeight(8);
                 stroke(255, 80, 100);
-                line(this.i * cellSize + 5, this.j * cellSize + 5,
-                    this.i * cellSize + cellSize - 5, this.j * cellSize + cellSize - 5);
-                line(this.i * cellSize + cellSize - 5, this.j * cellSize + 5,
-                    this.i * cellSize + 5, this.j * cellSize + cellSize - 5);
+                line(this.i * cellSize + 15, this.j * cellSize + 15,
+                    this.i * cellSize + cellSize - 15, this.j * cellSize + cellSize - 15);
+                line(this.i * cellSize + cellSize - 15, this.j * cellSize + 15,
+                    this.i * cellSize + 15, this.j * cellSize + cellSize - 15);
             }
         }
     }

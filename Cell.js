@@ -101,7 +101,6 @@ class Cell {
             }
             rect(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize - 1, cellSize - 1, 1);
             if (this.checked) {
-                //TODO: fix cross representation
                 strokeWeight(cellSize / 5);
                 stroke(255, 80, 100);
                 line(this.i * cellSize + cellSize / 4, this.j * cellSize + cellSize / 4,

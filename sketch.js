@@ -17,8 +17,8 @@ let minesLeftP = document.getElementById("minesLeft");
 let minesChecked = 0;
 
 load = () => {
-    cols = 5;
-    rows = 5;
+    cols = 20;
+    rows = 10;
     minesCount = 16;
 
     let difficulty = document.getElementById("levels").value;

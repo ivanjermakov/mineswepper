@@ -14,6 +14,8 @@ let gameStarted;
 let minesCount;
 let minesLeftP = document.getElementById("minesLeft");
 
+let minesChecked = 0;
+
 load = () => {
     cols = 20;
     rows = 10;
@@ -91,6 +93,8 @@ setup = () => {
     //limit frame rate to increase performance
     frameRate(30);
 
+    loop();
+
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
             field[i][j].setNeighbours();
@@ -103,6 +107,7 @@ draw = () => {
     background(150);
 
     drawField();
+    countChecked();
     checkForWin();
 
     if (mouseIsPressed) {
@@ -121,7 +126,7 @@ draw = () => {
 
     }
 
-    minesLeftP.innerText = minesCount;
+    minesLeftP.innerText = minesCount - minesChecked;
 };
 
 mouseClicked = () => {
@@ -173,6 +178,28 @@ keyPressed = () => {
 
 gameOver = () => {
     isGameOver = true;
+    showAllCells();
+};
+
+checkForWin = () => {
+    if (!win) {
+        for (let col of field) {
+            for (let cell of col) {
+                if ((cell.value === -1 && !cell.checked) || (cell.value !== -1 && cell.isHidden)) {
+                    return;
+                }
+            }
+        }
+
+        win = true;
+    } else {
+        minesChecked = minesCount;
+    }
+
+    showAllCells();
+};
+
+showAllCells = () => {
     for (let col of field) {
         for (let cell of col) {
             cell.isHidden = false;
@@ -180,20 +207,30 @@ gameOver = () => {
     }
 };
 
-checkForWin = () => {
+countChecked = () => {
+    //after game over there's no mines left
+    if (isGameOver && win) {
+        minesChecked = minesCount;
+        return;
+    }
+
+    let count = 0;
     for (let col of field) {
         for (let cell of col) {
-            if ((cell.value === -1 && !cell.checked) || (cell.value !== -1 && cell.isHidden)) {
-                return;
+            if (cell.checked && cell.isHidden) {
+                count++;
             }
         }
     }
 
-    win = true;
+    console.log(count + " " + minesCount + " " + cols + " " + rows);
 
-    for (let col of field) {
-        for (let cell of col) {
-            cell.isHidden = false;
-        }
+    //easter egg
+    if (count === cols * rows) {
+        window.open("https://www.urbandictionary.com/define.php?term=lol");
+        win = true;
+        noLoop();
     }
+
+    minesChecked = count;
 };

@@ -101,8 +101,14 @@ class Cell {
             }
             rect(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize - 1, cellSize - 1, 1);
             if (this.checked) {
+                // TODO: just draw flag better
                 fill(255, 80, 100);
-                rect(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize / 8, 0.7 * cellSize, 1);
+                rect(this.i * cellSize + cellSize / 2, this.j * cellSize + cellSize / 2, cellSize / 8, 0.7 * cellSize, 500);
+                // strokeWeight(15);
+                // line(this.i * cellSize + 5, this.j * cellSize + 5,
+                //     this.i * cellSize + cellSize - 5, this.j * cellSize + cellSize - 5);
+                // line(this.i * cellSize + cellSize - 5, this.j * cellSize + 5,
+                //     this.i * cellSize + 5, this.j * cellSize + cellSize - 5);
             }
         }
     }

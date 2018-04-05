@@ -186,7 +186,7 @@ gameOver = () => {
 };
 
 checkForWin = () => {
-    if (!win && !isGameOver) {
+    if (!win) {
         for (let col of field) {
             for (let cell of col) {
                 if ((cell.value === -1 && !cell.checked) || (cell.value !== -1 && cell.isHidden)) {
@@ -213,7 +213,7 @@ showAllCells = () => {
 
 countChecked = () => {
     //after game over there's no mines left
-    if (isGameOver && win) {
+    if (isGameOver || win) {
         minesChecked = minesCount;
         return;
     }

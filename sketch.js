@@ -14,6 +14,8 @@ let gameStarted;
 let minesCount;
 let minesLeftP = document.getElementById("minesLeft");
 
+let minesChecked = 0;
+
 load = () => {
     cols = 20;
     rows = 10;
@@ -103,6 +105,7 @@ draw = () => {
     background(150);
 
     drawField();
+    countChecked();
     checkForWin();
 
     if (mouseIsPressed) {
@@ -121,7 +124,7 @@ draw = () => {
 
     }
 
-    minesLeftP.innerText = minesCount;
+    minesLeftP.innerText = minesCount - minesChecked;
 };
 
 mouseClicked = () => {
@@ -173,11 +176,7 @@ keyPressed = () => {
 
 gameOver = () => {
     isGameOver = true;
-    for (let col of field) {
-        for (let cell of col) {
-            cell.isHidden = false;
-        }
-    }
+    showAllCells();
 };
 
 checkForWin = () => {
@@ -191,9 +190,32 @@ checkForWin = () => {
 
     win = true;
 
+    showAllCells();
+};
+
+showAllCells = () => {
     for (let col of field) {
         for (let cell of col) {
             cell.isHidden = false;
         }
     }
+};
+
+countChecked = () => {
+    //after game over there's no mines left
+    if (isGameOver && win) {
+        minesChecked = minesCount;
+        return;
+    }
+
+    let count = 0;
+    for (let col of field) {
+        for (let cell of col) {
+            if (cell.checked && cell.isHidden) {
+                count++;
+            }
+        }
+    }
+
+    minesChecked = count;
 };

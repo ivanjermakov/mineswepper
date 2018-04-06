@@ -28,9 +28,9 @@ p {
     display: inline;
     font-size: 150%;
     font-family: Calibri, serif;
-    margin: 0;
     padding: 0;
     color: #292929;
+    margin: 0 40px 0 0;
 }
 
 #difficulty {

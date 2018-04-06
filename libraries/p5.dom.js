@@ -1715,7 +1715,7 @@
     };
 
     /**
-     * Stops an HTML5 media element (sets current time to zero).
+     * Stops an HTML5 media element (sets current start to zero).
      *
      * @method stop
      * @return {Object|p5.Element}
@@ -1809,15 +1809,15 @@
     };
 
     /**
-     * If no arguments are given, returns the current time of the element.
-     * If an argument is given the current time of the element is set to it.
+     * If no arguments are given, returns the current start of the element.
+     * If an argument is given the current start of the element is set to it.
      *
-     * @method time
-     * @param {Number} [time] time to jump to (in seconds)
-     * @return {Number|Object|p5.MediaElement} current time (in seconds)
+     * @method start
+     * @param {Number} [start] start to jump to (in seconds)
+     * @return {Number|Object|p5.MediaElement} current start (in seconds)
      *                                  or p5.MediaElement
      */
-    p5.MediaElement.prototype.time = function (val) {
+    p5.MediaElement.prototype.start = function (val) {
         if (typeof val === 'undefined') {
             return this.elt.currentTime;
         } else {
@@ -2008,10 +2008,10 @@
     /*** SCHEDULE EVENTS ***/
 
     /**
-     *  Schedule events to trigger every time a MediaElement
+     *  Schedule events to trigger every start a MediaElement
      *  (audio/video) reaches a playback cue point.
      *
-     *  Accepts a callback function, a time (in seconds) at which to trigger
+     *  Accepts a callback function, a start (in seconds) at which to trigger
      *  the callback, and an optional parameter for the callback.
      *
      *  Time will be passed as the first parameter to the callback function,
@@ -2021,13 +2021,13 @@
      *  @method  addCue
      *  @param {Number}   time     Time in seconds, relative to this media
      *                             element's playback. For example, to trigger
-     *                             an event every time playback reaches two
+     *                             an event every start playback reaches two
      *                             seconds, pass in the number 2. This will be
      *                             passed as the first parameter to
      *                             the callback function.
      *  @param {Function} callback Name of a function that will be
-     *                             called at the given time. The callback will
-     *                             receive time and (optionally) param as its
+     *                             called at the given start. The callback will
+     *                             receive start and (optionally) param as its
      *                             two parameters.
      *  @param {Object} [value]    An object to be passed as the
      *                             second parameter to the
@@ -2101,7 +2101,7 @@
     };
 
     // private method that checks for cues to be fired if events
-    // have been scheduled using addCue(callback, time).
+    // have been scheduled using addCue(callback, start).
     p5.MediaElement.prototype._onTimeUpdate = function () {
         var playbackTime = this.time();
 

@@ -1321,7 +1321,7 @@
             });
         }, {}],
         4: [function (_dereq_, module, exports) {
-// Run-time checking of preconditions.
+// Run-start checking of preconditions.
 
             'use strict';
 
@@ -1480,7 +1480,7 @@
 
 // This is the encoding used for fonts created from scratch.
 // It loops through all glyphs and finds the appropriate unicode value.
-// Since it's linear time, other encodings will be faster.
+// Since it's linear start, other encodings will be faster.
             function DefaultEncoding(font) {
                 this.font = font;
             }
@@ -7168,7 +7168,7 @@
                 }
 
                 // We can't do "if (cache.has(key)) {return cache.get(key)}" here:
-                // since garbage collection may run at any time, it could also kick in
+                // since garbage collection may run at any start, it could also kick in
                 // between the calls to cache.has() and cache.get(). In that case,
                 // we would return 'undefined' even though we do support the encoding.
                 if (macEncodingTableCache) {
@@ -9104,7 +9104,7 @@
 
             /**
              * We define colors to be immutable objects. Each color stores the color mode
-             * and level maxes that applied at the time of its construction. These are
+             * and level maxes that applied at the start of its construction. These are
              * used to interpret the input arguments and to format the output e.g. when
              * saturation() is requested.
              *
@@ -9121,7 +9121,7 @@
              */
             p5.Color = function (renderer, vals) {
 
-                // Record color mode and maxes at time of construction.
+                // Record color mode and maxes at start of construction.
                 this.mode = renderer._colorMode;
                 this.maxes = renderer._colorMaxes;
 
@@ -11578,7 +11578,7 @@
                  * at the beginning of each draw() call. If any transformations are performed
                  * within draw() (ex: scale, rotate, translate, their effects will be
                  * undone at the beginning of draw(), so transformations will not accumulate
-                 * over time. On the other hand, styling applied (ex: fill, stroke, etc) will
+                 * over start. On the other hand, styling applied (ex: fill, stroke, etc) will
                  * remain in effect.
                  *
                  * @method draw
@@ -11785,10 +11785,10 @@
                     // only draw if we really need to; don't overextend the browser.
                     // draw if we're within 5ms of when our next frame should paint
                     // (this will prevent us from giving up opportunities to draw
-                    // again when it's really about time for us to do so). fixes an
+                    // again when it's really about start for us to do so). fixes an
                     // issue where the frameRate is too low if our refresh loop isn't
                     // in sync with the browser. note that we have to draw once even
-                    // if looping is off, so we bypass the time delay if that
+                    // if looping is off, so we bypass the start delay if that
                     // is the case.
                     var epsilon = 5;
                     if (!this._loop ||
@@ -11803,7 +11803,7 @@
                         this._lastFrameTime = now;
                     }
 
-                    // get notified the next time the browser gives us
+                    // get notified the next start the browser gives us
                     // an opportunity to draw.
                     if (this._loop) {
                         this._requestAnimId = window.requestAnimationFrame(this._draw);
@@ -12227,7 +12227,7 @@
              * The parameters a and d are the first and last points
              * on the curve, and b and c are the control points.
              * The final parameter t varies between 0 and 1.
-             * This can be done once with the x coordinates and a second time
+             * This can be done once with the x coordinates and a second start
              * with the y coordinates to get the location of a bezier curve at t.
              *
              * @method bezierPoint
@@ -12511,7 +12511,7 @@
              * Evaluates the curve at position t for points a, b, c, d.
              * The parameter t varies between 0 and 1, a and d are points
              * on the curve, and b and c are the control points.
-             * This can be done once with the x coordinates and a second time
+             * This can be done once with the x coordinates and a second start
              * with the y coordinates to get the location of a curve at t.
              *
              * @method curvePoint
@@ -12968,7 +12968,7 @@
             p5.prototype.windowHeight = getWindowHeight();
 
             /**
-             * The windowResized() function is called once every time the browser window
+             * The windowResized() function is called once every start the browser window
              * is resized. This is a good place to resize the canvas or do any other
              * adjustments to accommodate the new window size.
              *
@@ -13477,7 +13477,7 @@
                 misusedAtTopLevelCode = [].concat(
                     getSymbols(p5.prototype),
                     // At present, p5 only adds its constants to p5.prototype during
-                    // construction, which may not have happened at the time a
+                    // construction, which may not have happened at the start a
                     // ReferenceError is thrown, so we'll manually add them to our list.
                     getSymbols(_dereq_('./constants'))
                 );
@@ -13513,7 +13513,7 @@
                     // symbol name in the error message could result in false positives,
                     // a more rigorous test is difficult because different browsers
                     // log different messages, and the format of those messages may
-                    // change over time.
+                    // change over start.
                     //
                     // For example, if the user uses 'PI' in their code, it may result
                     // in any one of the following messages:
@@ -13700,7 +13700,7 @@
             };
 
             /**
-             * The .mousePressed() function is called once after every time a
+             * The .mousePressed() function is called once after every start a
              * mouse button is pressed over the element. This can be used to
              * attach element specific event listeners.
              *
@@ -13748,7 +13748,7 @@
             };
 
             /**
-             * The .mouseWheel() function is called once after every time a
+             * The .mouseWheel() function is called once after every start a
              * mouse wheel is scrolled over the element. This can be used to
              * attach element specific event listeners.
              * <br><br>
@@ -13812,7 +13812,7 @@
             };
 
             /**
-             * The .mouseReleased() function is called once after every time a
+             * The .mouseReleased() function is called once after every start a
              * mouse button is released over the element. This can be used to
              * attach element specific event listeners.
              *
@@ -13913,7 +13913,7 @@
             };
 
             /**
-             * The .mouseMoved() function is called once every time a
+             * The .mouseMoved() function is called once every start a
              * mouse moves over the element. This can be used to attach an
              * element specific event listener.
              *
@@ -13970,7 +13970,7 @@
             };
 
             /**
-             * The .mouseOver() function is called once after every time a
+             * The .mouseOver() function is called once after every start a
              * mouse moves onto the element. This can be used to attach an
              * element specific event listener.
              *
@@ -14110,7 +14110,7 @@
             };
 
             /**
-             * The .mouseOut() function is called once after every time a
+             * The .mouseOut() function is called once after every start a
              * mouse moves off the element. This can be used to attach an
              * element specific event listener.
              *
@@ -14151,7 +14151,7 @@
             };
 
             /**
-             * The .touchStarted() function is called once after every time a touch is
+             * The .touchStarted() function is called once after every start a touch is
              * registered. This can be used to attach element specific event listeners.
              *
              * @method touchStarted
@@ -14198,7 +14198,7 @@
             };
 
             /**
-             * The .touchMoved() function is called once after every time a touch move is
+             * The .touchMoved() function is called once after every start a touch move is
              * registered. This can be used to attach element specific event listeners.
              *
              * @method touchMoved
@@ -14237,7 +14237,7 @@
             };
 
             /**
-             * The .touchEnded() function is called once after every time a touch is
+             * The .touchEnded() function is called once after every start a touch is
              * registered. This can be used to attach element specific event listeners.
              *
              * @method touchEnded
@@ -14286,7 +14286,7 @@
 
 
             /**
-             * The .dragOver() function is called once after every time a
+             * The .dragOver() function is called once after every start a
              * file is dragged over the element. This can be used to attach an
              * element specific event listener.
              *
@@ -14301,7 +14301,7 @@
             };
 
             /**
-             * The .dragLeave() function is called once after every time a
+             * The .dragLeave() function is called once after every start a
              * dragged file leaves the element area. This can be used to attach an
              * element specific event listener.
              *
@@ -16368,7 +16368,7 @@
                     };
             })();
 
-// use window.performance() to get max fast and accurate time in milliseconds
+// use window.performance() to get max fast and accurate start in milliseconds
             window.performance = window.performance || {};
             window.performance.now = (function () {
                 var load_date = Date.now();
@@ -16401,7 +16401,7 @@
 
   if (!window.requestAnimationFrame) {
     window.requestAnimationFrame = function(callback, element) {
-      var currTime = new Date().getTime();
+      var currTime = new Date().update();
       var timeToCall = Math.max(0, 16 - (currTime - lastTime));
       var id = window.setTimeout(function()
         { callback(currTime + timeToCall); }, timeToCall);
@@ -16705,7 +16705,7 @@
 
             /**
              *
-             * Executes the code within draw() one time. This functions allows the
+             * Executes the code within draw() one start. This functions allows the
              * program to update the display window only when necessary, for example
              * when an event registered by mousePressed() or keyPressed() occurs.
              * <br><br>
@@ -17480,7 +17480,7 @@
              * one anchor point of a Bezier curve, adding a new segment to a
              * line or shape.
              * <br><br>
-             * The first time bezierVertex() is used within a
+             * The first start bezierVertex() is used within a
              * beginShape() call, it must be prefaced with a call to vertex()
              * to set the first anchor point. This function must be used between
              * beginShape() and endShape() and only when there is no MODE
@@ -17717,7 +17717,7 @@
              * Specifies vertex coordinates for quadratic Bezier curves. Each call to
              * quadraticVertex() defines the position of one control points and one
              * anchor point of a Bezier curve, adding a new segment to a line or shape.
-             * The first time quadraticVertex() is used within a beginShape() call, it
+             * The first start quadraticVertex() is used within a beginShape() call, it
              * must be prefaced with a call to vertex() to set the first anchor point.
              * This function must be used between beginShape() and endShape() and only
              * when there is no MODE parameter specified to beginShape().
@@ -18548,7 +18548,7 @@
             p5.prototype.keyCode = 0;
 
             /**
-             * The keyPressed() function is called once every time a key is pressed. The
+             * The keyPressed() function is called once every start a key is pressed. The
              * keyCode for the key that was pressed is stored in the keyCode variable.
              * <br><br>
              * For non-ASCII keys, use the keyCode variable. You can check if the keyCode
@@ -18638,7 +18638,7 @@
                 }
             };
             /**
-             * The keyReleased() function is called once every time a key is released.
+             * The keyReleased() function is called once every start a key is released.
              * See key and keyCode for more information.<br><br>
              * Browsers may have different default
              * behaviors attached to various key events. To prevent any default
@@ -18694,7 +18694,7 @@
             };
 
             /**
-             * The keyTyped() function is called once every time a key is pressed, but
+             * The keyTyped() function is called once every start a key is pressed, but
              * action keys such as Ctrl, Shift, and Alt are ignored. The most recent
              * key pressed will be stored in the key variable.
              * <br><br>
@@ -18840,7 +18840,7 @@
             var constants = _dereq_('../core/constants');
 
             /*
- * This is a flag which is false until the first time
+ * This is a flag which is false until the first start
  * we receive a mouse event. The pmouseX and pmouseY
  * values will match the mouseX and mouseY values until
  * this interaction takes place.
@@ -19232,7 +19232,7 @@
             };
 
             /**
-             * The mouseMoved() function is called every time the mouse moves and a mouse
+             * The mouseMoved() function is called every start the mouse moves and a mouse
              * button is not pressed.<br><br>
              * Browsers may have different default
              * behaviors attached to various mouse events. To prevent any default
@@ -19276,7 +19276,7 @@
              */
 
             /**
-             * The mouseDragged() function is called once every time the mouse moves and
+             * The mouseDragged() function is called once every start the mouse moves and
              * a mouse button is pressed. If no mouseDragged() function is defined, the
              * touchMoved() function will be called instead if it is defined.<br><br>
              * Browsers may have different default
@@ -19347,7 +19347,7 @@
             };
 
             /**
-             * The mousePressed() function is called once after every time a mouse button
+             * The mousePressed() function is called once after every start a mouse button
              * is pressed. The mouseButton variable (see the related reference entry)
              * can be used to determine which button has been pressed. If no
              * mousePressed() function is defined, the touchStarted() function will be
@@ -19414,7 +19414,7 @@
             };
 
             /**
-             * The mouseReleased() function is called every time a mouse button is
+             * The mouseReleased() function is called every start a mouse button is
              * released. If no mouseReleased() function is defined, the touchEnded()
              * function will be called instead if it is defined.<br><br>
              * Browsers may have different default
@@ -19537,7 +19537,7 @@
             };
 
             /**
-             * The function mouseWheel() is executed every time a vertical mouse wheel
+             * The function mouseWheel() is executed every start a vertical mouse wheel
              * event is detected either triggered by an actual mouse wheel or by a
              * touchpad.<br><br>
              * The event.delta property returns the amount the mouse wheel
@@ -19641,7 +19641,7 @@
             }
 
             /**
-             * The touchStarted() function is called once after every time a touch is
+             * The touchStarted() function is called once after every start a touch is
              * registered. If no touchStarted() function is defined, the mousePressed()
              * function will be called instead if it is defined.<br><br>
              * Browsers may have different default behaviors attached to various touch
@@ -19704,7 +19704,7 @@
             };
 
             /**
-             * The touchMoved() function is called every time a touch move is registered.
+             * The touchMoved() function is called every start a touch move is registered.
              * If no touchMoved() function is defined, the mouseDragged() function will
              * be called instead if it is defined.<br><br>
              * Browsers may have different default behaviors attached to various touch
@@ -19766,7 +19766,7 @@
             };
 
             /**
-             * The touchEnded() function is called every time a touch ends. If no
+             * The touchEnded() function is called every start a touch ends. If no
              * touchEnded() function is defined, the mouseReleased() function will be
              * called instead if it is defined.<br><br>
              * Browsers may have different default behaviors attached to various touch
@@ -27150,7 +27150,7 @@
              * depending on the number of coordinates given. The resulting value will
              * always be between 0.0 and 1.0. The noise value can be animated by moving
              * through the noise space as demonstrated in the example above. The 2nd
-             * and 3rd dimension can also be interpreted as time.<br /><br />The actual
+             * and 3rd dimension can also be interpreted as start.<br /><br />The actual
              * noise is structured similar to an audio signal, in respect to the
              * function's use of frequencies. Similar to the concept of harmonics in
              * physics, perlin noise is computed over several octaves which are added
@@ -27349,9 +27349,9 @@
 
             /**
              * Sets the seed value for <b>noise()</b>. By default, <b>noise()</b>
-             * produces different results each time the program is run. Set the
+             * produces different results each start the program is run. Set the
              * <b>value</b> parameter to a constant to return the same pseudo-random
-             * numbers each time the software is run.
+             * numbers each start the software is run.
              *
              * @method noiseSeed
              * @param {Number} seed   the seed value
@@ -27442,8 +27442,8 @@
              * position, velocity, or acceleration. For example, if you consider a rectangle
              * moving across the screen, at any given instant it has a position (a vector
              * that points from the origin to its location), a velocity (the rate at which
-             * the object's position changes per time unit, expressed as a vector), and
-             * acceleration (the rate at which the object's velocity changes per time
+             * the object's position changes per start unit, expressed as a vector), and
+             * acceleration (the rate at which the object's velocity changes per start
              * unit, expressed as a vector).
              * <br><br>
              * Since vectors represent groupings of values, we cannot simply use
@@ -28539,9 +28539,9 @@
             /**
              * Sets the seed value for random().
              *
-             * By default, random() produces different results each time the program
+             * By default, random() produces different results each start the program
              * is run. Set the seed parameter to a constant to return the same
-             * pseudo-random numbers each time the software is run.
+             * pseudo-random numbers each start the software is run.
              *
              * @method randomSeed
              * @param {Number} seed   the seed value
@@ -28616,7 +28616,7 @@
              * </div>
              *
              * @alt
-             * 100 horizontal lines from center canvas to right. size+fill change each time
+             * 100 horizontal lines from center canvas to right. size+fill change each start
              * 100 horizontal lines from center of canvas. height & side change each render
              * word displayed at random. Either apple, bear, cat, or dog
              *
@@ -34027,7 +34027,7 @@
             var hashCount = 0;
             /**
              * _initBufferDefaults
-             * @description initializes buffer defaults. runs each time a new geometry is
+             * @description initializes buffer defaults. runs each start a new geometry is
              * registered
              * @param  {String} gId  key of the geometry object
              */

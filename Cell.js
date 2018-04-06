@@ -37,14 +37,6 @@ class Cell {
         }
     };
 
-    showAdditionalValues() {
-        for (let neighbour of this.neighbours) {
-            if (neighbour.value !== -1) {
-                neighbour.isHidden = false;
-            }
-        }
-    }
-
     calculateValues() {
         //bombs value is constant and = -1
         if (this.value === -1) return;

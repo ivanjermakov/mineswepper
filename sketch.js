@@ -12,9 +12,10 @@ let isGameOver;
 let gameStarted;
 
 let minesCount;
-let minesLeftP = document.getElementById("minesLeft");
 
 let minesChecked = 0;
+
+let stopWatch = new Stopwatch();
 
 load = () => {
     cols = 20;
@@ -130,7 +131,13 @@ draw = () => {
 
     }
 
-    minesLeftP.innerText = "" + (minesCount - minesChecked);
+    if (stopWatch.getSeconds()) {
+        document.getElementById("time").innerText = stopWatch.getSeconds();
+    } else {
+        document.getElementById("time").innerText = 0;
+    }
+
+    document.getElementById("minesLeft").innerText = "" + (minesCount - minesChecked);
 };
 
 mouseClicked = () => {
@@ -145,6 +152,8 @@ mouseClicked = () => {
                     }
 
                     gameStarted = true;
+                    stopWatch.start();
+
                 }
                 field[i][j].leftClick();
                 return false;
@@ -182,6 +191,8 @@ keyPressed = () => {
 
 gameOver = () => {
     isGameOver = true;
+    stopWatch.stop();
+
     showAllCells();
 };
 
@@ -196,6 +207,7 @@ checkForWin = () => {
         }
 
         win = true;
+        stopWatch.stop();
     } else {
         minesChecked = minesCount;
     }
@@ -226,8 +238,6 @@ countChecked = () => {
             }
         }
     }
-
-    console.log(count + " " + minesCount + " " + cols + " " + rows);
 
     //easter egg
     if (count === cols * rows) {

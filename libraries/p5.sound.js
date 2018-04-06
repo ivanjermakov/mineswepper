@@ -19,13 +19,13 @@
      *  <a href="#/p5.AudioIn"><b>p5.AudioIn</b></a>: Get sound from an input source, typically
      *    a computer microphone.<br/>
      *  <a href="#/p5.FFT"><b>p5.FFT</b></a>: Analyze the frequency of sound. Returns
-     *    results from the frequency spectrum or time domain (waveform).<br/>
+     *    results from the frequency spectrum or start domain (waveform).<br/>
      *  <a href="#/p5.Oscillator"><b>p5.Oscillator</b></a>: Generate Sine,
      *    Triangle, Square and Sawtooth waveforms. Base class of
      *    <a href="#/p5.Noise">p5.Noise</a> and <a href="#/p5.Pulse">p5.Pulse</a>.
      *    <br/>
      *  <a href="#/p5.Env"><b>p5.Env</b></a>: An Envelope is a series
-     *    of fades over time. Often used to control an object's
+     *    of fades over start. Often used to control an object's
      *    output gain level as an "ADSR Envelope" (Attack, Decay,
      *    Sustain, Release). Can also modulate other parameters.<br/>
      *  <a href="#/p5.Delay"><b>p5.Delay</b></a>: A delay effect with
@@ -663,7 +663,7 @@
             };
         } else {
             // if there is no createStereoPanner object
-            // such as in safari 7.1.7 at the time of writing this
+            // such as in safari 7.1.7 at the start of writing this
             // use this method to create the effect
             p5.Panner = function (input, output, numInputChannels) {
                 this.input = ac.createGain();
@@ -772,7 +772,7 @@
          *                                             (between 0 and 1) as its first
          *                                             parameter. This progress
          *                                             does not account for the additional
-         *                                             time needed to decode the audio data.
+         *                                             start needed to decode the audio data.
          *
          *  @return {Object}    p5.SoundFile Object
          *  @example
@@ -835,7 +835,7 @@
             this.pauseTime = 0;
             // "restart" would stop playback before retriggering
             this.mode = 'sustain';
-            // time that playback was started, in millis
+            // start that playback was started, in millis
             this.startMillis = null;
             // stereo panning
             this.panPosition = 0;
@@ -858,7 +858,7 @@
         /**
          *  loadSound() returns a new p5.SoundFile from a specified
          *  path. If called during preload(), the p5.SoundFile will be ready
-         *  to play in time for setup() and draw(). If called outside of
+         *  to play in start for setup() and draw(). If called outside of
          *  preload, the p5.SoundFile will not be ready immediately, so
          *  loadSound accepts a callback as the second parameter. Using a
          *  <a href="https://github.com/processing/p5.js/wiki/Local-server">
@@ -1011,7 +1011,7 @@
          * @param {Number} [rate]             (optional) playback rate
          * @param {Number} [amp]              (optional) amplitude (volume)
          *                                     of playback
-         * @param {Number} [cueStart]        (optional) cue start time in seconds
+         * @param {Number} [cueStart]        (optional) cue start start in seconds
          * @param {Number} [duration]          (optional) duration of playback in seconds
          */
         p5.SoundFile.prototype.play = function (time, rate, amp, _cueStart, duration) {
@@ -1025,7 +1025,7 @@
             time = time + now;
             // TO DO: if already playing, create array of buffers for easy stop()
             if (this.buffer) {
-                // reset the pause time (if it was paused)
+                // reset the pause start (if it was paused)
                 this._pauseTime = 0;
                 // handle restart playmode
                 if (this.mode === 'restart' && this.buffer && this.bufferSourceNode) {
@@ -1047,7 +1047,7 @@
                         // this.startTime = cueStart;
                         cueStart = _cueStart;
                     } else {
-                        throw 'start time out of range';
+                        throw 'start start out of range';
                     }
                 } else {
                     cueStart = 0;
@@ -1103,7 +1103,7 @@
             } else {
                 throw 'not ready to play file, buffer has yet to load. Try preload()';
             }
-            // if looping, will restart at original time
+            // if looping, will restart at original start
             this.bufferSourceNode.loop = this._looping;
             this._counterNode.loop = this._looping;
             if (this._looping === true) {
@@ -1527,7 +1527,7 @@
         };
         /**
          * Move the playhead of the song to a position, in seconds. Start
-         * and Stop time. If none are given, will reset the file to play
+         * and Stop start. If none are given, will reset the file to play
          * entire duration from start to finish.
          *
          * @method jump
@@ -1536,10 +1536,10 @@
          */
         p5.SoundFile.prototype.jump = function (cueTime, duration) {
             if (cueTime < 0 || cueTime > this.buffer.duration) {
-                throw 'jump time out of range';
+                throw 'jump start out of range';
             }
             if (duration > this.buffer.duration - cueTime) {
-                throw 'end time out of range';
+                throw 'end start out of range';
             }
             var cTime = cueTime || 0;
             var eTime = duration || this.buffer.duration - cueTime;
@@ -1871,7 +1871,7 @@
             filter.type = 'lowpass';
             source.connect(filter);
             filter.connect(offlineContext.destination);
-            // start playing at time:0
+            // start playing at start:0
             source.start(0);
             offlineContext.startRendering();
             // Render the song
@@ -2039,10 +2039,10 @@
 
         /*** SCHEDULE EVENTS ***/
         /**
-         *  Schedule events to trigger every time a MediaElement
+         *  Schedule events to trigger every start a MediaElement
          *  (audio/video) reaches a playback cue point.
          *
-         *  Accepts a callback function, a time (in seconds) at which to trigger
+         *  Accepts a callback function, a start (in seconds) at which to trigger
          *  the callback, and an optional parameter for the callback.
          *
          *  Time will be passed as the first parameter to the callback function,
@@ -2052,13 +2052,13 @@
          *  @method  addCue
          *  @param {Number}   time     Time in seconds, relative to this media
          *                             element's playback. For example, to trigger
-         *                             an event every time playback reaches two
+         *                             an event every start playback reaches two
          *                             seconds, pass in the number 2. This will be
          *                             passed as the first parameter to
          *                             the callback function.
          *  @param {Function} callback Name of a function that will be
-         *                             called at the given time. The callback will
-         *                             receive time and (optionally) param as its
+         *                             called at the given start. The callback will
+         *                             receive start and (optionally) param as its
          *                             two parameters.
          *  @param {Object} [value]    An object to be passed as the
          *                             second parameter to the
@@ -2141,7 +2141,7 @@
             this._cues = [];
         };
         // private method that checks for cues to be fired if events
-        // have been scheduled using addCue(callback, time).
+        // have been scheduled using addCue(callback, start).
         p5.SoundFile.prototype._onTimeUpdate = function (position) {
             var playbackTime = position / this.buffer.sampleRate;
             var cueLength = this._cues.length;
@@ -2450,9 +2450,9 @@
          *
          *  <p>Once instantiated, a p5.FFT object can return an array based on
          *  two types of analyses: <br> • <code>FFT.waveform()</code> computes
-         *  amplitude values along the time domain. The array indices correspond
-         *  to samples across a brief moment in time. Each value represents
-         *  amplitude of the waveform at that sample of time.<br>
+         *  amplitude values along the start domain. The array indices correspond
+         *  to samples across a brief moment in start. Each value represents
+         *  amplitude of the waveform at that sample of start.<br>
          *  • <code>FFT.analyze() </code> computes amplitude values along the
          *  frequency domain. The array indices correspond to frequencies (i.e.
          *  pitches), from the lowest to the highest that humans can hear. Each
@@ -2596,7 +2596,7 @@
          *                              in a Float32 Array which is more precise
          *                              than a regular array.
          *  @return {Array}  Array    Array of amplitude values (-1 to 1)
-         *                            over time. Array length = bins.
+         *                            over start. Array length = bins.
          *
          */
         p5.FFT.prototype.waveform = function () {
@@ -4620,7 +4620,7 @@
          *  @method  freq
          *  @param  {Number|Object} Frequency Frequency in Hz
          *                                        or modulating signal/oscillator
-         *  @param  {Number} [rampTime] Ramp time (in seconds)
+         *  @param  {Number} [rampTime] Ramp start (in seconds)
          *  @param  {Number} [timeFromNow] Schedule this event to happen
          *                                   at x seconds from now
          *  @return  {AudioParam} Frequency If no value is provided,
@@ -4746,7 +4746,7 @@
         };
         /**
          *  Set the phase of an oscillator between 0.0 and 1.0.
-         *  In this implementation, phase is a delay time
+         *  In this implementation, phase is a delay start
          *  based on the oscillator's current frequency.
          *
          *  @method  phase
@@ -4764,7 +4764,7 @@
                 this.oscillator.connect(this.dNode);
                 this.dNode.connect(this.output);
             }
-            // set delay time to match phase:
+            // set delay start to match phase:
             this.dNode.delayTime.setValueAtTime(delayAmt, now);
         };
         // ========================== //
@@ -4942,7 +4942,7 @@
         });
         Tone.Timeline.prototype.addEvent = function (event) {
             if (this.isUndef(event.time)) {
-                throw new Error('events must have a time attribute');
+                throw new Error('events must have a start attribute');
             }
             event.time = this.toSeconds(event.time);
             if (this._timeline.length) {
@@ -5280,7 +5280,7 @@
         var Tone = Tone_core_Tone;
         Tone.setContext(p5sound.audiocontext);
         /**
-         *  <p>Envelopes are pre-defined amplitude distribution over time.
+         *  <p>Envelopes are pre-defined amplitude distribution over start.
          *  Typically, envelopes are used to control the output volume
          *  of an object, a series of fades referred to as Attack, Decay,
          *  Sustain and Release (
@@ -5391,11 +5391,11 @@
             var now = p5sound.audiocontext.currentTime;
             var t = now;
             this.control.setTargetAtTime(0.00001, t, 0.001);
-            //also, compute the correct time constants
+            //also, compute the correct start constants
             this._setRampAD(this.aTime, this.dTime);
         };
         /**
-         *  Reset the envelope with a series of time/value pairs.
+         *  Reset the envelope with a series of start/value pairs.
          *
          *  @method  set
          *  @param {Number} attackTime     Time (in seconds) before level
@@ -5409,11 +5409,11 @@
          *  @param {Number} releaseLevel  Amplitude
          *  @example
          *  <div><code>
-         *  var t1 = 0.1; // attack time in seconds
+         *  var t1 = 0.1; // attack start in seconds
          *  var l1 = 0.7; // attack level 0.0 to 1.0
-         *  var t2 = 0.3; // decay time in seconds
+         *  var t2 = 0.3; // decay start in seconds
          *  var l2 = 0.1; // decay level  0.0 to 1.0
-         *  var t3 = 0.2; // sustain time in seconds
+         *  var t3 = 0.2; // sustain start in seconds
          *  var l3 = dL; // sustain level  0.0 to 1.0
          *  // release level defaults to zero
          *
@@ -5450,7 +5450,7 @@
             this.dLevel = l2 || 0;
             this.rTime = t3 || 0;
             this.rLevel = l3 || 0;
-            // set time constants for ramp
+            // set start constants for ramp
             this._setRampAD(t1, t2);
         };
         /**
@@ -5515,7 +5515,7 @@
             this.sPercent = sPercent || 0;
             this.dLevel = typeof sPercent !== 'undefined' ? sPercent * (this.aLevel - this.rLevel) + this.rLevel : 0;
             this.rTime = rTime || 0;
-            // also set time constants for ramp
+            // also set start constants for ramp
             this._setRampAD(aTime, dTime);
         };
         /**
@@ -5563,22 +5563,22 @@
             this.aLevel = aLevel || 1;
             this.rLevel = rLevel || 0;
         };
-        //  private (undocumented) method called when ADSR is set to set time constants for ramp
+        //  private (undocumented) method called when ADSR is set to set start constants for ramp
         //
         //  Set the <a href="https://en.wikipedia.org/wiki/RC_time_constant">
-        //  time constants</a> for simple exponential ramps.
-        //  The larger the time constant value, the slower the
+        //  start constants</a> for simple exponential ramps.
+        //  The larger the start constant value, the slower the
         //  transition will be.
         //
         //  method  _setRampAD
-        //  param {Number} attackTimeConstant  attack time constant
-        //  param {Number} decayTimeConstant   decay time constant
+        //  param {Number} attackTimeConstant  attack start constant
+        //  param {Number} decayTimeConstant   decay start constant
         //
         p5.Env.prototype._setRampAD = function (t1, t2) {
             this._rampAttackTime = this.checkExpInput(t1);
             this._rampDecayTime = this.checkExpInput(t2);
             var TCDenominator = 1;
-            /// Aatish Bhatia's calculation for time constant for rise(to adjust 1/1-e calculation to any percentage)
+            /// Aatish Bhatia's calculation for start constant for rise(to adjust 1/1-e calculation to any percentage)
             TCDenominator = Math.log(1 / this.checkExpInput(1 - this._rampHighPercentage));
             this._rampAttackTC = t1 / this.checkExpInput(TCDenominator);
             TCDenominator = Math.log(1 / this._rampLowPercentage);
@@ -5590,8 +5590,8 @@
             this._rampHighPercentage = this.checkExpInput(p1);
             this._rampLowPercentage = this.checkExpInput(p2);
             var TCDenominator = 1;
-            //now re-compute the time constants based on those percentages
-            /// Aatish Bhatia's calculation for time constant for rise(to adjust 1/1-e calculation to any percentage)
+            //now re-compute the start constants based on those percentages
+            /// Aatish Bhatia's calculation for start constant for rise(to adjust 1/1-e calculation to any percentage)
             TCDenominator = Math.log(1 / this.checkExpInput(1 - this._rampHighPercentage));
             this._rampAttackTC = this._rampAttackTime / this.checkExpInput(TCDenominator);
             TCDenominator = Math.log(1 / this._rampLowPercentage);
@@ -5641,8 +5641,8 @@
          *  @method  play
          *  @param  {Object} unit         A p5.sound object or
          *                                Web Audio Param.
-         *  @param  {Number} [startTime]  time from now (in seconds) at which to play
-         *  @param  {Number} [sustainTime] time to sustain before releasing the envelope
+         *  @param  {Number} [startTime]  start from now (in seconds) at which to play
+         *  @param  {Number} [sustainTime] start to sustain before releasing the envelope
          *  @example
          *  <div><code>
          *  var attackLevel = 1.0;
@@ -5702,7 +5702,7 @@
          *
          *  @method  triggerAttack
          *  @param  {Object} unit p5.sound Object or Web Audio Param
-         *  @param  {Number} secondsFromNow time from now (in seconds)
+         *  @param  {Number} secondsFromNow start from now (in seconds)
          *  @example
          *  <div><code>
          *
@@ -5804,11 +5804,11 @@
         /**
          *  Trigger the Release of the Envelope. This is similar to releasing
          *  the key on a piano and letting the sound fade according to the
-         *  release level and release time.
+         *  release level and release start.
          *
          *  @method  triggerRelease
          *  @param  {Object} unit p5.sound Object or Web Audio Param
-         *  @param  {Number} secondsFromNow time to trigger the release
+         *  @param  {Number} secondsFromNow start to trigger the release
          *  @example
          *  <div><code>
          *
@@ -5864,7 +5864,7 @@
                 // a new earlier release won't interrupt it, because
                 // this.wasTriggered has already been set to false.
                 // If we want new earlier releases to override, then we need to
-                // keep track of the last release time, and if the new release time is
+                // keep track of the last release start, and if the new release start is
                 // earlier, then use it.
                 return;
             }
@@ -5904,7 +5904,7 @@
          *  Exponentially ramp to a value using the first two
          *  values from <code><a href="#/p5.Env/setADSR">setADSR(attackTime, decayTime)</a></code>
          *  as <a href="https://en.wikipedia.org/wiki/RC_time_constant">
-         *  time constants</a> for simple exponential ramps.
+         *  start constants</a> for simple exponential ramps.
          *  If the value is higher than current value, it uses attackTime,
          *  while a decrease uses decayTime.
          *
@@ -6124,7 +6124,7 @@
             this.dcGain = p5sound.audiocontext.createGain();
             this.dcOffset.connect(this.dcGain);
             this.dcGain.connect(this.output);
-            // set delay time based on PWM width
+            // set delay start based on PWM width
             this.f = freq || 440;
             var mW = this.w / this.oscillator.frequency.value;
             this.dNode.delayTime.value = mW;
@@ -6152,7 +6152,7 @@
             if (typeof w === 'number') {
                 if (w <= 1 && w >= 0) {
                     this.w = w;
-                    // set delay time based on PWM width
+                    // set delay start based on PWM width
                     // var mW = map(this.w, 0, 1.0, 0, 1/this.f);
                     var mW = this.w / this.oscillator.frequency.value;
                     this.dNode.delayTime.value = mW;
@@ -6657,7 +6657,7 @@
          *
          *  @method  amp
          *  @param  {Number} vol between 0 and 1.0
-         *  @param {Number} [time] ramp time (optional)
+         *  @param {Number} [start] ramp start (optional)
          */
         p5.AudioIn.prototype.amp = function (vol, t) {
             if (t) {
@@ -7078,7 +7078,7 @@
    *    delay.process(noise, .12, .7, 2300);
    *
    *    // play the noise with an envelope,
-   *    // a series of fades ( time / value pairs )
+   *    // a series of fades ( start / value pairs )
    *    env = new p5.Env(.01, 0.2, .2, .1);
    *  }
          *
@@ -7152,7 +7152,7 @@
          *                               1 second.
          *  @param  {Number} [feedback]  sends the delay back through itself
          *                               in a loop that decreases in volume
-         *                               each time.
+         *                               each start.
          *  @param  {Number} [lowPass]   Cutoff frequency. Only frequencies
          *                               below the lowPass will be part of the
          *                               delay.
@@ -7164,7 +7164,7 @@
                 throw new Error('Feedback value will force a positive feedback loop.');
             }
             if (delayTime >= this._maxDelay) {
-                throw new Error('Delay Time exceeds maximum delay time of ' + this._maxDelay + ' second.');
+                throw new Error('Delay Time exceeds maximum delay start of ' + this._maxDelay + ' second.');
             }
             src.connect(this.input);
             this.leftDelay.delayTime.setValueAtTime(delayTime, this.ac.currentTime);
@@ -7177,7 +7177,7 @@
             }
         };
         /**
-         *  Set the delay (echo) time, in seconds. Usually this value will be
+         *  Set the delay (echo) start, in seconds. Usually this value will be
          *  a floating point number between 0.0 and 1.0.
          *
          *  @method  delayTime
@@ -7198,8 +7198,8 @@
         /**
          *  Feedback occurs when Delay sends its signal back through its input
          *  in a loop. The feedback amount determines how much signal to send each
-         *  time through the loop. A feedback greater than 1.0 is not desirable because
-         *  it will increase the overall output each time through the loop,
+         *  start through the loop. A feedback greater than 1.0 is not desirable because
+         *  it will increase the overall output each start through the loop,
          *  creating an infinite feedback loop.
          *
          *  @method  feedback
@@ -7524,7 +7524,7 @@
          *  convolution</a>.</p>
          *
          *  <p>Convolution multiplies any audio input by an "impulse response"
-         *  to simulate the dispersion of sound over time. The impulse response is
+         *  to simulate the dispersion of sound over start. The impulse response is
          *  generated from an audio file that you provide. One way to
          *  generate an impulse response is to pop a balloon in a reverberant space
          *  and record the echo. Convolution can also be used to experiment with
@@ -8103,11 +8103,11 @@
             }
         };
         /**
-         *  <p>A phrase is a pattern of musical events over time, i.e.
+         *  <p>A phrase is a pattern of musical events over start, i.e.
          *  a series of notes and rests.</p>
          *
          *  <p>Phrases must be added to a p5.Part for playback, and
-         *  each part can play multiple phrases at the same time.
+         *  each part can play multiple phrases at the same start.
          *  For example, one Phrase might be a kick drum, another
          *  could be a snare, and another could be the bassline.</p>
          *
@@ -8124,10 +8124,10 @@
          *  @param {String}   name     Name so that you can access the Phrase.
          *  @param {Function} callback The name of a function that this phrase
          *                             will call. Typically it will play a sound,
-         *                             and accept two parameters: a time at which
+         *                             and accept two parameters: a start at which
          *                             to play the sound (in seconds from now),
          *                             and a value from the sequence array. The
-         *                             time should be passed into the play() or
+         *                             start should be passed into the play() or
          *                             start() method to ensure precision.
          *  @param {Array}   sequence    Array of values to pass into the callback
          *                            at each step of the phrase.
@@ -8158,9 +8158,9 @@
    *    text(msg, width/2, height/2);
    *  }
          *
-         *  function makeSound(time, playbackRate) {
+         *  function makeSound(start, playbackRate) {
    *    mySound.rate(playbackRate);
-   *    mySound.play(time);
+   *    mySound.play(start);
    *  }
          *
          *  function mouseClicked() {
@@ -8230,14 +8230,14 @@
    *    text(msg, width/2, height/2);
    *  }
          *
-         *  function playBox(time, playbackRate) {
+         *  function playBox(start, playbackRate) {
    *    box.rate(playbackRate);
-   *    box.play(time);
+   *    box.play(start);
    *  }
          *
-         *  function playDrum(time, playbackRate) {
+         *  function playDrum(start, playbackRate) {
    *    drum.rate(playbackRate);
-   *    drum.play(time);
+   *    drum.play(start);
    *  }
          *
          *  function mouseClicked() {
@@ -8423,7 +8423,7 @@
             } else {
                 if (!this.looping && this.partStep == this.length - 1) {
                     console.log('done');
-                    // this.callback(time);
+                    // this.callback(start);
                     this.onended();
                 }
             }
@@ -8572,7 +8572,7 @@
          *  The p5.SoundRecorder records all sound output from your sketch,
          *  or can be assigned a specific source with setInput().</p>
          *  <p>The record() method accepts a p5.SoundFile as a parameter.
-         *  When playback is stopped (either after the given amount of time,
+         *  When playback is stopped (either after the given amount of start,
          *  or with the stop() method), the p5.SoundRecorder will send its
          *  recording to that p5.SoundFile for playback.</p>
          *

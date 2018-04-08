@@ -15,7 +15,19 @@ let minesCount;
 
 let minesChecked = 0;
 
-let stopWatch = new Stopwatch();
+let stopWatch;
+
+class Score {
+    constructor(date, time) {
+        this.date = date;
+        this.time = time;
+    }
+}
+
+let scoreTable = [];
+if (localStorage.getItem("scores")) {
+    scoreTable = JSON.parse(localStorage.getItem("scores"));
+}
 
 load = () => {
     cols = 20;
@@ -97,6 +109,8 @@ setup = () => {
 
     //limit frame rate to increase performance
     frameRate(30);
+
+    stopWatch = new Stopwatch();
 
     loop();
 
@@ -208,6 +222,7 @@ checkForWin = () => {
 
         win = true;
         stopWatch.stop();
+        recalculateHighScores();
     } else {
         minesChecked = minesCount;
     }
@@ -247,4 +262,20 @@ countChecked = () => {
     }
 
     minesChecked = count;
+};
+
+//TODO: interface for highscores
+recalculateHighScores = () => {
+    let score = new Score(new Date().toJSON().slice(0, 10), stopWatch.getSeconds());
+    scoreTable.push(score);
+
+    scoreTable.sort((a, b) => {
+        if (a.time < b.time)
+            return -1;
+        if (a.time > b.time)
+            return 1;
+        return 0;
+    });
+
+    localStorage.setItem("scores", JSON.stringify(scoreTable));
 };

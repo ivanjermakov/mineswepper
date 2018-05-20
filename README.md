@@ -1,5 +1,7 @@
 # Mineswepper
 
+![](https://sun9-9.userapi.com/c840521/v840521610/83f42/4tsyJMhGo7k.jpg)
+
 **Warning**: this game can get seriously addictive and it's very easy to lose track of time while playing it.
 
 ## Rules
